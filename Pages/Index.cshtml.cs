@@ -7,17 +7,17 @@ namespace Razor09.Pages;
 public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
-    private readonly MyBlogContext _dbContext;
+    private readonly MyBlogContext myBlogContext;
 
-    public IndexModel(ILogger<IndexModel> logger, MyBlogContext dbContext)
+    public IndexModel(ILogger<IndexModel> logger, MyBlogContext _myContext)
     {
         _logger = logger;
-        _dbContext = dbContext;
+        myBlogContext = _myContext;
     }
 
     public void OnGet()
     {
-        var posts = (from p in _dbContext.articles
+        var posts = (from p in myBlogContext.articles
                     orderby p.Created descending
                     select p).ToList();
         ViewData["posts"] = posts;
