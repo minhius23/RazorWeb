@@ -1,0 +1,59 @@
+@page "/blogs"
+@model Razor09.Pages_Blog.IndexModel
+
+@{
+    ViewData["Title"] = "Quản Lí Bài Viết";
+    int i =0;
+    var pagingModel = new Helpers.PagingModel(){
+        currentPage = Model.currentPage,
+        countPages = Model.countPages,
+        generateURl = (int? p) => Url.Page("/Blog/Index",new { p = p })
+    };
+}
+<partial name="_Paging" model="@pagingModel"></partial>
+
+
+<h1>Quản LÍ Bài Viết</h1>
+
+<p>
+    <a class="btn btn-primary" asp-page="Create">Create New</a>
+</p>
+<form asp-page="Blog/Index" method="get">
+<label for="search" >Tìm Kiếm</label>
+<input type="text" name="searchString" id="search">
+<input type="submit" class="btn btn-danger">
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article[0].Created)
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Article) {
+        <tr>
+            <td>@(++i)</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+           
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID" asp-route-id="@item.ID" >Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

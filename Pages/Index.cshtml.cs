@@ -1,8 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore.Internal;
+using Razor09.Models;
 
 namespace Razor09.Pages;
+
 
 public class IndexModel : PageModel
 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using Bogus;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Razor09.Models;
 using Razor09.Pages;
 
 #nullable disable

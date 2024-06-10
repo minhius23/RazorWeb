@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Razor09.Models;
 
-namespace Razor09.Pages{
-     public class MyBlogContext : DbContext{
+namespace Razor09.Models{
+     public class MyBlogContext : IdentityDbContext<AppUser>{
         public MyBlogContext(DbContextOptions<MyBlogContext> options) : base(options)
         {
 
@@ -13,6 +15,12 @@ namespace Razor09.Pages{
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            foreach(var entityType in modelBuilder.Model.GetEntityTypes()){
+                var tableName = entityType.GetTableName();
+                if(tableName.StartsWith("AspNet")){
+                    entityType.SetTableName(tableName.Substring(6));
+                }
+            }
         }
 
         public DbSet<Article> articles {set;get;}
